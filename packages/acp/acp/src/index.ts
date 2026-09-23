@@ -262,7 +262,7 @@ export function apply(ctx: Context, config: AcpConfig): void {
   const makeAgent = (connection: AgentSideConnection): AcpAgent => {
     conn = connection
     return {
-       initialize(_params: InitializeRequest): Promise<InitializeResponse> {
+      initialize(_params: InitializeRequest): Promise<InitializeResponse> {
         // Single-version agent: the spec's "same version if supported, else
         // the latest supported" both resolve to this server's one version.
         return Promise.resolve({
@@ -271,27 +271,29 @@ export function apply(ctx: Context, config: AcpConfig): void {
           agentCapabilities: {
             promptCapabilities: { image: false, audio: false, embeddedContext: false },
           },
-          authMethods: config.authToken !== undefined && config.authToken !== '' ? ['bearer'] : [],
+          authMethods: config.authToken !== undefined && config.authToken !== ''
+            ? [{ id: 'bearer', name: 'Bearer token' }]
+            : [],
         })
       },
 
-       authenticate(params: AuthenticateRequest): Promise<void> {
-         const token = config.authToken
-         if (token === undefined || token === '') {
-           // No token configured: authenticate is a no-op (stdio trust model).
-           return Promise.resolve()
-         }
-         // On a stdio JSON-RPC transport there are no native HTTP headers;
-         // the bearer token is carried in _meta.authorization, matching the
-         // ACP spec's Authorization header convention.
-         const metaToken = params._meta?.authorization
-         if (typeof metaToken !== 'string' || !safeEqual(metaToken, token)) {
-           authenticated = false
-           throw internalError('authentication failed')
-         }
-         authenticated = true
-         return Promise.resolve()
-       },
+      authenticate(params: AuthenticateRequest): Promise<void> {
+        const token = config.authToken
+        if (token === undefined || token === '') {
+          // No token configured: authenticate is a no-op (stdio trust model).
+          return Promise.resolve()
+        }
+        // On a stdio JSON-RPC transport there are no native HTTP headers;
+        // the bearer token is carried in _meta.authorization, matching the
+        // ACP spec's Authorization header convention.
+        const metaToken = params._meta?.authorization
+        if (typeof metaToken !== 'string' || !safeEqual(metaToken, token)) {
+          authenticated = false
+          throw internalError('authentication failed')
+        }
+        authenticated = true
+        return Promise.resolve()
+      },
 
       async newSession(params: NewSessionRequest): Promise<NewSessionResponse> {
         assertAuthenticated()
@@ -320,7 +322,7 @@ export function apply(ctx: Context, config: AcpConfig): void {
         return { sessionId }
       },
 
-       async prompt(params: PromptRequest): Promise<PromptResponse> {
+      async prompt(params: PromptRequest): Promise<PromptResponse> {
         assertAuthenticated()
         assertOpen()
         const record = requireSession(SessionId(params.sessionId))

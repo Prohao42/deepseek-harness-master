@@ -18,7 +18,7 @@ describe('automation-only ACP bridge', () => {
       clientCapabilities: { _meta: { terminal_output: true } },
     })
 
-     expect(response).toEqual({
+    expect(response).toEqual({
       protocolVersion: PROTOCOL_VERSION,
       agentInfo: { name: 'deepseek-harness-acp', version: '0.0.1' },
       agentCapabilities: {
@@ -34,7 +34,7 @@ describe('automation-only ACP bridge', () => {
       protocolVersion: PROTOCOL_VERSION,
       clientCapabilities: {},
     })
-    expect(response.authMethods).toEqual(['bearer'])
+    expect(response.authMethods).toEqual([{ id: 'bearer', name: 'Bearer token' }])
   })
 
   it('rejects unauthenticated requests when authToken is configured', async () => {

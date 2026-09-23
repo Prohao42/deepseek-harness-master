@@ -124,6 +124,22 @@
   cursor: pointer;
 }
 
+/* The wordmark yields width before the Chinese brand label, so the label
+   stays legible at every sidebar width. */
+.brandMark {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.brandCn {
+  flex: none;
+  margin-left: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
 .iconButton {
   flex: none;
   display: inline-flex;

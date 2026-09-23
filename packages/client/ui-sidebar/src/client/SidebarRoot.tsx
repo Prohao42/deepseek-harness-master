@@ -137,7 +137,8 @@ export function SidebarRoot({
             aria-label={t('session.new.label')}
             onClick={() => { startSession() }}
           >
-            <BrandWordmark />
+            <BrandWordmark className={css.brandMark} />
+            <span className={css.brandCn}>炸炸酥网安</span>
           </button>
         )}
         {/* Rail resting state is the whale mark; hovering swaps in the panel

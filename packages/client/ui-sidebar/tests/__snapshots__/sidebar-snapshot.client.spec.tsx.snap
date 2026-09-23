@@ -102,12 +102,18 @@ exports[`sidebar shell snapshots > renders the expanded column (wordmark, capsul
       >
         <svg
           aria-hidden="true"
+          class="brandMark"
           data-content="951274b9"
           fill="none"
           height="24"
           viewBox="0 0 182 24"
           width="182"
         />
+        <span
+          class="brandCn"
+        >
+          炸炸酥网安
+        </span>
       </button>
       <button
         aria-label="Collapse sidebar"
@@ -195,12 +201,18 @@ exports[`sidebar shell snapshots > renders the expanded column in the default lo
       >
         <svg
           aria-hidden="true"
+          class="brandMark"
           data-content="951274b9"
           fill="none"
           height="24"
           viewBox="0 0 182 24"
           width="182"
         />
+        <span
+          class="brandCn"
+        >
+          炸炸酥网安
+        </span>
       </button>
       <button
         aria-label="收起侧边栏"

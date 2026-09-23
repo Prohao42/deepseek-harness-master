@@ -72,6 +72,14 @@ const LOOPBACK_HOST = '127.0.0.1'
 /** The webserver schema's all-interfaces bind literal. */
 const ALL_INTERFACES_HOST = '0.0.0.0'
 
+/** Startup banner. Display-only branding; it never prints for a failed boot. */
+const BANNER = [
+  '╔══════════════════════════════════════════',
+  '║  炸炸酥网安 · DeepSeek Harness',
+  '║  everything is a plugin',
+  '╚══════════════════════════════════════════',
+].join('\n')
+
 /**
  * Resolve one LAN-trust snapshot from the active server bind.
  *
@@ -165,6 +173,7 @@ export function apply(ctx: Context, config: Config): void {
       // Reuse the exact LAN snapshot provided to the /api trust fence.
       const lanCandidate = runtime.lanAddresses[0]
       const port = ctx.webServer.port
+      console.log(BANNER)
       console.log(`dsh web: ${localWebUrl(ctx)}${lanCandidate === undefined ? '' : ` (LAN: http://${lanCandidate}:${String(port)})`}`)
     }
     // This row's own activation can precede a sibling failure. The app owns

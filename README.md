@@ -1,71 +1,412 @@
+# 🛡️ DeepSeek Harness
+
+<div align="center">
+
 # 炸炸酥网安 · DeepSeek Harness
 
-**一个把渗透测试装进 AI Agent 的开源框架。**
+### 🚀 AI Agent 驱动的新一代安全测试工作台
 
-项目地址：<https://github.com/Prohao42/deepseek-harness-master>
+**LLM + Security Playbook + Tool Agent + Sandbox**
 
-DeepSeek Harness（`dsh`）是一个插件化的 AI Agent 运行框架——在它这里，**一切皆插件**。底层基于 [Cordis](https://github.com/cordiverse/cordis)，上层把会话、工具、LLM、沙箱、技能全部拆成独立 capability，像搭积木一样组合。本项目在此基础上预装了 **103 个渗透测试技能**，让它从通用 Agent 变成开箱即用的网络安全 AI 工作台。
+让 AI Agent 理解安全流程，让渗透测试流程自动化。
 
-## 核心亮点
+<br>
 
-### 103 个渗透技能，开箱即用
+[![GitHub Stars](https://img.shields.io/github/stars/Prohao42/deepseek-harness-master?style=flat-square)](https://github.com/Prohao42/deepseek-harness-master)
+[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D22-blue?style=flat-square)]()
+[![Security](https://img.shields.io/badge/security-AI%20Agent-red?style=flat-square)]()
 
-覆盖安全测试全链路：
+</div>
 
-| 方向 | 代表技能 |
-|---|---|
-| Web 漏洞 | SQL注入、XSS、SSRF、XXE、SSTI、命令注入、文件上传 |
-| 绕过技术 | WAF绕过、CSP绕过、401/403绕过、鉴权缺陷、JWT攻击 |
-| 内网攻防 | AD域控（Kerberos攻击、ACL滥用、证书服务）、Windows/Linux提权、横向移动、NTLM中继 |
-| 云与容器 | K8s渗透、容器逃逸、依赖混淆、子域名接管 |
-| 二进制 | 堆利用、栈溢出ROP、内核利用、V8浏览器引擎利用 |
-| 密码学 | RSA攻击、格密码、对称密码模式弱点 |
-| 移动与AI | Android/iOS渗透、LLM提示注入、智能合约审计 |
+---
 
-每个技能都是结构化 playbook——不是静态知识库，而是 Agent 在测试时**主动加载并按步骤执行**的操作手册。
+# ✨ 项目介绍
 
-### 架构即安全
+**DeepSeek Harness（dsh）** 是一个插件化 AI Agent 运行框架。
 
-- **一切皆插件**：30+ 个独立包，每个能力（shell、文件系统、沙箱、审批）都是可插拔的 capability seam
-- **操作有闸门**：Agent 执行高危操作前有交互式审批机制
-- **默认不裸奔**：Web 服务只绑回环地址，硬拒 `0.0.0.0`，内置 DNS rebinding / CSRF 防护
-- **会话可审计**：所有模型输入输出落盘为 session log，测试过程完整可回溯
+它将：
 
-### 一分钟启动
+- 🧠 大语言模型（LLM）
+- 🤖 Agent 推理能力
+- 🧩 Security Skill Playbook
+- 🔧 工具调用系统
+- 📦 沙箱执行环境
+- 🔐 人工审批机制
 
-需要 Node.js ^22.19 或 >=24，以及 pnpm（推荐经 corepack）：
+组合成一个完整的 AI 安全工作流平台。
 
-```sh
+不同于传统安全工具集合：
+
+> DeepSeek Harness 不是把工具堆在一起，而是让 Agent 根据任务自动选择技能、规划流程并执行安全验证。
+
+---
+
+## ✨ 联系方式
+
+推特：https://x.com/Fakerrf5
+
+飞机：https://t.me/Prohao42
+
+抖音：https://v.douyin.com/CyuKg0eT7sM/ 8@5.com :8pm
+炸炸酥~🐷
+
+知识星球：https://t.zsxq.com/FGUeq
+
+知识星球有更强版本的移机版本，更多渗透技能的skill  更新渗透文档、更多的学习技巧。
+
+微信号：ylki-372
+
+# 🏗️ 系统架构
+
+```
+User
+                          |
+                          v
+
+                  DeepSeek Harness UI
+
+                          |
+                          v
+
+                    Agent Runtime
+
+                    (Cordis Engine)
+
+                          |
+        +-----------------+----------------+
+
+        |                 |                |
+
+        v                 v                v
+
+
+      LLM             Skill Engine      Memory
+
+ DeepSeek API       Security         Session
+                    Playbooks         Logs
+
+
+        |                 |
+
+        +-----------------+
+
+                          |
+
+                          v
+
+
+              Capability Layer
+
+
+        +---------+----------+---------+
+
+        |         |          |         |
+
+      Shell    Browser    Sandbox   Files
+
+
+                          |
+
+                          v
+
+
+              Authorized Testing Target
+```
+
+---
+
+# 🚀 核心能力
+
+## 🧠 AI Agent Runtime
+
+基于 Cordis 架构：
+
+- 多能力模块组合
+- 动态加载能力
+- Agent 工作流编排
+- 会话状态管理
+
+---
+
+## 🧩 Security Skill System
+
+内置 **103+ 安全测试技能**。
+
+技能不是静态知识库，而是 Agent 可以主动调用的安全流程。
+
+示例：
+
+```
+skills/
+
+├── web-security
+
+│   ├── sql-injection
+│   ├── xss
+│   ├── ssrf
+│   ├── ssti
+│   └── upload
+
+
+├── enterprise-security
+
+│   ├── active-directory
+│   ├── kerberos
+│   ├── ldap
+│   └── privilege-escalation
+
+
+├── cloud-security
+
+│   ├── kubernetes
+│   ├── docker
+│   └── cloud-misconfiguration
+
+
+├── mobile-security
+
+│   ├── android
+│   └── ios
+
+
+└── ai-security
+
+    ├── prompt-injection
+    └── llm-security
+```
+
+---
+
+# 🔥 支持安全领域
+
+| 分类 | 能力 |
+|-|-|
+| Web 安全 | SQL Injection、XSS、SSRF、XXE、SSTI |
+| 身份安全 | JWT、OAuth、认证绕过 |
+| 内网安全 | AD、Kerberos、ACL、横向移动 |
+| 系统安全 | Windows/Linux 提权 |
+| 云安全 | Kubernetes、Docker、云配置审计 |
+| 二进制安全 | 栈溢出、ROP、漏洞分析 |
+| 移动安全 | Android/iOS 安全测试 |
+| AI 安全 | Prompt Injection、LLM Security |
+
+---
+
+# ⚡ 工作流程
+
+用户输入：
+
+```
+分析目标 API 是否存在 SQL 注入风险
+```
+
+Agent 自动执行：
+
+```
+1. 加载 SQL Injection Skill
+
+        ↓
+
+2. 分析目标接口
+
+        ↓
+
+3. 参数识别
+
+        ↓
+
+4. 安全验证
+
+        ↓
+
+5. 风险评估
+
+        ↓
+
+6. 输出安全报告
+```
+
+---
+
+
+
+## 默认安全策略
+
+✅ 默认绑定 localhost
+
+✅ 防止 DNS Rebinding
+
+✅ CSRF 防护
+
+✅ Session 审计日志
+
+✅ 操作全过程记录
+
+---
+
+# 📦 快速开始
+
+## 环境要求
+
+```
+Node.js >=22
+
+pnpm
+
+DeepSeek API Key
+```
+
+安装：
+
+```bash
 git clone https://github.com/Prohao42/deepseek-harness-master.git
+
 cd deepseek-harness-master
+
+
+corepack enable
+
+
 corepack pnpm install
+
+
 corepack pnpm run build
+
+
 corepack pnpm dsh --profile web
 ```
 
-打开 <http://127.0.0.1:3080>，输入 `@sqli-sql-injection` 即可调用对应技能，让 AI 带你走完整条测试链。
+启动：
 
-> 需要真实对话能力时，在仓库根目录创建 `.env`，写入 `DEEPSEEK_API_KEY=sk-...`。
+```
+http://127.0.0.1:3080
+```
 
-## 适合谁
+---
 
-- **安全从业者**：把重复性的侦察、验证工作交给 Agent，自己专注决策
-- **SRC 选手**：内置 `aimy-src-hunt` 全流程技能，从侦察到报告一条龙
-- **学习者**：103 份 playbook 本身就是一份结构化的渗透测试知识库
-- **研究者**：插件架构让你可以替换、扩展任何一环，做自己的 Agent 实验
+# 🤖 使用示例
 
-## 合规声明
+输入：
 
-所有渗透测试技能仅限**授权测试**：本地靶场（DVWA、HTB）、自有资产、SRC 公告范围内使用。未经授权对他人系统进行测试属违法行为。
+```
+@sqli-sql-injection
+```
 
-## 开发
+Agent：
 
-从 [development guide](docs/development.md) 和 [architecture documentation](docs/architecture.md) 开始。
+```
+Loading Skill...
 
-For agents, follow [AGENTS.md](AGENTS.md).
+SQL Injection Playbook Ready
 
-## License
+Workflow:
 
-[MIT](LICENSE)
+✓ Target Analysis
 
-Third-party dependencies and their licenses are disclosed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+✓ Parameter Detection
+
+✓ Validation
+
+✓ Report Generation
+```
+
+---
+
+# 🛠️ 开发自己的 Skill
+
+创建：
+
+```
+skills/my-security-skill/
+
+├── skill.yaml
+
+├── workflow.md
+
+├── checklist.md
+
+└── references.md
+```
+
+示例：
+
+```yaml
+name: my-security-skill
+
+
+description:
+
+  Custom Security Workflow
+
+
+steps:
+
+  - analysis
+
+  - validation
+
+  - reporting
+```
+
+---
+
+# 🎯 应用场景
+
+## 安全工程师
+
+减少重复测试工作。
+
+## SRC Hunter
+
+自动化：
+
+```
+资产发现
+
+↓
+
+漏洞验证
+
+↓
+
+报告生成
+```
+
+## 安全学习
+
+103 个 Playbook：
+
+就是结构化安全知识库。
+
+
+# ⚠️ 合规声明
+
+DeepSeek Harness 仅用于：
+
+✅ 自有资产安全测试
+
+✅ 企业授权测试
+
+✅ CTF / 靶场环境
+
+✅ SRC 明确授权范围
+
+禁止：
+
+❌ 未授权扫描
+
+❌ 未授权攻击
+
+❌ 非法访问第三方系统
+
+使用者必须确保拥有合法授权。
+
+---
+
+
+## ⭐ 如果项目对你有帮助，欢迎 Star 支持
+
+
+</div>
+

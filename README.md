@@ -43,20 +43,13 @@
 ---
 
 ## ✨ 联系方式
-
-推特：https://x.com/Fakerrf5
-
-飞机：https://t.me/Prohao42
-
-抖音：https://v.douyin.com/CyuKg0eT7sM/ 8@5.com :8pm
-炸炸酥~🐷
-
-知识星球：https://t.zsxq.com/FGUeq
-
-知识星球有更强版本的移机版本，更多渗透技能的skill  更新渗透文档、更多的学习技巧。
-
-微信号：ylki-372
-
+- **X (Twitter)**：[@Fakerrf5](https://x.com/Fakerrf5)
+- **Telegram**：[@Prohao42](https://t.me/Prohao42)
+- **抖音**：[炸炸酥~](https://www.douyin.com/user/MS4wLjABAAAAfgxDFsrK3Fgf_PnJRcPeFdjjKnqtLNTR_q4KKKZKHyGlzYz8T3mZf3V4qax05lFb)
+- **知识星球**：[@炸炸酥](https://t.zsxq.com/FGUeq)
+  ![图片](https://yangdada873.ggff.net/file/1790961984947_7e6b8fe85a9a6c7c6040b281f049902d.jpg)
+- **微信公众号**:[炸炸酥渗透测试](https://yangdada873.ggff.net/file/1790961747832_扫码_搜索联合传播样式-标准色版.png)
+  ![图片](https://yangdada873.ggff.net/file/1790961747832_扫码_搜索联合传播样式-标准色版.png)
 # 🏗️ 系统架构
 
 ```
